@@ -201,8 +201,8 @@ fiReduceSolution = (function () {
     },
 
     size: function (obj, callback) {
-      let reducer = (result, item) => result ? result + 1 : 1;
-      return this.reduce(obj, reducer);
+      let reducer = (result, item) => result + 1;
+      return this.reduce(obj, reducer, 0);
     },
 
     first: function (obj, n) {
@@ -240,7 +240,7 @@ fiReduceSolution = (function () {
         } else if (!shallow && Array.isArray(item)) {
           return this.flatten(item, false, result);
         } else {
-          return [...result, item];
+          return result.concat(item);
         }
       };
       return this.reduce(obj, reducer, result);
