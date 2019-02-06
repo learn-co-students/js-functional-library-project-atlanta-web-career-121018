@@ -273,6 +273,28 @@ fiReduceSolution = (function () {
       return this.reduce(obj, reducer, []);
     },
 
+    remove: function (obj, callback) {
+      // NOTE: We can view this as the opposite of filter and ruby does
+      // have the `reject` method which is the inverse of select, skipping
+      // an item instead of copying it.
+
+      // let reducer = (result, item) => callback(item) ? result : result.concat(item);
+      // return this.reduce(obj, reducer, []);
+      // But we could also reuse filter ...
+
+      return this.filter(obj, (item) => !callback(item));
+
+      // Of course, many of these examples can be written differently, often
+      // more succinctly if we reuse other parts of this library. For example,
+      // the functions method above, written with filter, could be:
+      // return this.filter(obj, (x) => x instanceof Function);
+    },
+
+    reverse: function (obj) {
+      let reducer = (result, item) => [item].concat(result);
+      return this.reduce(obj, reducer, []);
+    },
+
     giveMeMore: function () {
       return true;
     }
